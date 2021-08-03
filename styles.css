@@ -6,13 +6,34 @@ h1 {
   text-align: center;
   text-transform: uppercase;
 }
-.main {
+h2 {
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+
+.main,
+.addFoodForm {
   width: 50%;
   margin: 0 auto;
 }
-.main h2 {
-  text-transform: capitalize;
-  text-decoration: underline;
+
+.addFoodForm {
+  border: 1px solid white;
+  padding: 1%;
+}
+
+.addFoodForm form {
+  width: 100%;
+}
+.addFoodForm form input {
+  width: 100%;
+  margin: 1% auto;
+  display: block;
+  text-align: center;
+}
+.addFoodForm button {
+  width: 100%;
+  padding: 1% 0;
 }
 
 .main ul li {
