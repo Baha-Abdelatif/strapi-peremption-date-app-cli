@@ -6,7 +6,7 @@ const init = () => {
   getFood();
 }
 const getFood = () => {
-  fetch(`${apiUrl}/fooditems`)
+  fetch(`${apiUrl}/fooditems?_sort=Expiration_date:ASC`)
     .then(data => data.json())
     .then(result => {
       allFood = result;
