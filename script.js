@@ -10,9 +10,16 @@ const getFood = () => {
     .then(data => data.json())
     .then(result => {
       allFood = result;
-      console.log('All Food: ', allFood)
+      renderFood(allFood);
     })
     .catch(err => { console.error(err) })
 }
-
+const renderFood = (food) => {
+  let foodList = [];
+  food.forEach(f => {
+    const foodItem = `<li>${f.title}</li>`;
+    foodList = [...foodList, foodItem];
+  })
+  mainDiv.innerHTML = `<h2>Liste des plats :</h2><ul>${foodList.join("")}</ul>`
+}
 init();
