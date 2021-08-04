@@ -9,8 +9,10 @@ const expirationDateField = addFoodForm.expirationDate;
 addFoodForm.addEventListener("submit", addFood);
 let lastItemAdded = null;
 let flashTimeout;
+// "Event Delegation" : on delegue la gestion de l'evenement (clic sur la croix) a l'element parent plutot que gerer un nouvel event dynamiquement à la creation du list-item
+mainDiv.addEventListener("click", deleteFoodItem)
 
-const init = () => {
+function init() {
   getFood();
 }
 function getFood() {
@@ -29,7 +31,7 @@ function renderFood(food) {
   let foodList = [];
   food.forEach(f => {
     const locale_date = convertInLocaleDate(f.expiration_date);
-    const foodItem = `<li id="${f.id}"><h3>${f.title}</h3> - DLC/DLUO : ${locale_date}</li>`;
+    const foodItem = `<li id="${f.id}"><button data-id="${f.id}" title="Supprimer l'element">❌</button> ${f.title} : ⏲ -> ${locale_date}</li>`;
     foodList = [...foodList, foodItem];
   })
   mainDiv.innerHTML = `<h2>Liste des plats :</h2><ul>${foodList.join("")}</ul>`
@@ -61,6 +63,16 @@ function addFood(e) {
       getFood();
     })
     .catch(err => { console.error(err) })
+}
+
+function deleteFoodItem(e) {
+  // console.dir(e.target)
+  // Verifie que l'element sur lequel on clique est un bouton, si ce n'est pas le cas on ne fait rien
+  if (e.target.nodeName.toLowerCase() !== "button") {
+    return
+  }
+  const parentEltId = e.target.parentElement.id;
+  console.log(parentEltId)
 }
 
 function flashLastItemAdded(item) {

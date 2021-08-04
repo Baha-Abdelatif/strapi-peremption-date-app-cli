@@ -13,7 +13,7 @@ h2 {
 
 .main,
 .addFoodForm {
-  width: 50%;
+  width: 60%;
   margin: 0 auto;
 }
 .main ul {
@@ -47,4 +47,15 @@ h2 {
 
 .main ul li {
   list-style: none;
+}
+
+li button {
+  background: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+li button:hover {
+  font-size: 1.1rem;
+  cursor: pointer;
 }
