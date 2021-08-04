@@ -36,6 +36,12 @@ h2 {
   padding: 1% 0;
 }
 
+.flashed {
+  font-weight: bold;
+  font-size: large;
+  color: green;
+}
+
 .main ul li {
   list-style: none;
 }

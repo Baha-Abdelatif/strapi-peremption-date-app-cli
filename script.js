@@ -7,6 +7,8 @@ const foodTitle = addFoodForm.foodTitle;
 const expirationDateField = addFoodForm.expirationDate;
 
 addFoodForm.addEventListener("submit", addFood);
+let lastItemAdded = null;
+let flashTimeout;
 
 const init = () => {
   getFood();
@@ -17,13 +19,16 @@ function getFood() {
     .then(result => {
       allFood = result;
       renderFood(allFood);
+      if (lastItemAdded !== null) {
+        flashLastItemAdded(lastItemAdded);
+      }
     })
     .catch(err => { console.error(err) })
 }
 function renderFood(food) {
   let foodList = [];
   food.forEach(f => {
-    const foodItem = `<li>${f.title}</li>`;
+    const foodItem = `<li id="${f.id}">${f.title}</li>`;
     foodList = [...foodList, foodItem];
   })
   mainDiv.innerHTML = `<h2>Liste des plats :</h2><ul>${foodList.join("")}</ul>`
@@ -46,12 +51,23 @@ function addFood(e) {
     },
     body: JSON.stringify(payload)
   })
-    .then(response => {
+    .then(response => response.json())
+    .then(data => {
+      // console.log(data);
       foodTitle.value = "";
       expirationDateField.value = "";
+      lastItemAdded = data.id;
       getFood();
     })
     .catch(err => { console.error(err) })
+}
+
+function flashLastItemAdded(item) {
+  console.log(item);
+  const lastItemAddedElt = document.getElementById(`${item}`);
+  lastItemAddedElt.classList.add("flashed");
+  flashTimeout = setTimeout(() => { lastItemAddedElt.classList.remove("flashed") }, 900);
+  // clearTimeout(flashTimeout);
 }
 
 init();
