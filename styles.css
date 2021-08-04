@@ -16,7 +16,10 @@ h2 {
   width: 50%;
   margin: 0 auto;
 }
-
+.main ul {
+  max-height: 45vh;
+  overflow-y: scroll;
+}
 .addFoodForm {
   border: 1px solid white;
   padding: 1%;

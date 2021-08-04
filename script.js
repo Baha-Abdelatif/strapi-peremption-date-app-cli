@@ -28,7 +28,8 @@ function getFood() {
 function renderFood(food) {
   let foodList = [];
   food.forEach(f => {
-    const foodItem = `<li id="${f.id}">${f.title}</li>`;
+    const locale_date = convertInLocaleDate(f.expiration_date);
+    const foodItem = `<li id="${f.id}"><h3>${f.title}</h3> - DLC/DLUO : ${locale_date}</li>`;
     foodList = [...foodList, foodItem];
   })
   mainDiv.innerHTML = `<h2>Liste des plats :</h2><ul>${foodList.join("")}</ul>`
@@ -63,11 +64,20 @@ function addFood(e) {
 }
 
 function flashLastItemAdded(item) {
-  console.log(item);
+  // console.log(item);
   const lastItemAddedElt = document.getElementById(`${item}`);
   lastItemAddedElt.classList.add("flashed");
-  flashTimeout = setTimeout(() => { lastItemAddedElt.classList.remove("flashed") }, 900);
+  flashTimeout = setTimeout(() => {
+    lastItemAddedElt.classList.remove("flashed");
+    lastItemAdded = null;
+  }, 900);
   // clearTimeout(flashTimeout);
+}
+
+function convertInLocaleDate(dateString) {
+  const dateToConvert = new Date(dateString);
+  const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+  return dateToConvert.toLocaleDateString('fr-FR', dateOptions)
 }
 
 init();
