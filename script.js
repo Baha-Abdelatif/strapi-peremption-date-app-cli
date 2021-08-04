@@ -72,7 +72,14 @@ function deleteFoodItem(e) {
     return
   }
   const parentEltId = e.target.parentElement.id;
-  console.log(parentEltId)
+  fetch(`${apiUrl}/fooditems/${parentEltId}`, {
+    method: "DELETE"
+  })
+    .then(res => {
+      console.log(res.json());
+      getFood();
+    })
+  // console.log(parentEltId)
 }
 
 function flashLastItemAdded(item) {
