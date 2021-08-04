@@ -31,11 +31,27 @@ function renderFood(food) {
 function addFood(e) {
   // Liste les propriétés disponibles de l'event
   // console.dir(e.target)
-
   e.preventDefault();
   const title = foodTitle.value.trim();
-  const expirationDate = expirationDateField.value
-  console.log(title, expirationDate)
+  const expiration_date = expirationDateField.value;
+  const payload = {
+    title,
+    expiration_date,
+    category: 'default'
+  }
+  fetch(`${apiUrl}/fooditems`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload)
+  })
+    .then(response => {
+      foodTitle.value = "";
+      expirationDateField.value = "";
+      getFood();
+    })
+    .catch(err => { console.error(err) })
 }
 
 init();
